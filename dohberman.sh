@@ -24,4 +24,5 @@ if [ $answer = "y" ]
 then
   sudo nc -nlvp $port
 fi
+rm -rf ./payload.sh
 echo "Have a good day :)"
