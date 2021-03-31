@@ -24,5 +24,5 @@ if [ $answer = "y" ]
 then
   sudo nc -nlvp $port
 fi
-rm -rf ./payload.sh
+rm -rf ./payload.py
 echo "Have a good day :)"
