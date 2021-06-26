@@ -19,7 +19,7 @@ params = {
         'type': 'A',
         'ct': 'application/dns-json'
 }
-data = client.get(url, params=params)
+data = client.get(url, params=params, verify=False)
 json_data = str(data.json())
 
 host = [match[0] for match in re.findall(ipv4, json_data)]
