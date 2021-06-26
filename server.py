@@ -194,7 +194,7 @@ def show_commands():
     print "Commands : "
     print "        [h|help|?] : show this help"
     print "        [l] : list all online slaves"
-    print "        [p] : log.info(position info"
+    print "        [p] : position info"
     print "        [i] : interactive shell"
     print "        [g] : goto a slave"
     print "        [c] : command for all"
