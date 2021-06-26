@@ -234,6 +234,7 @@ def show_commands():
     print "        [p] : log.info(position info"
     print "        [i] : interactive shell"
     print "        [g] : goto a slave"
+    print "        [c] : command for all"
     print "        [d] : delete node"
     print "        [q|quit|exit] : exit"
 
@@ -291,6 +292,12 @@ def main():
             print "[%s]" % ("-" * 0x2A)
         elif command == "p":
             current_slave.show_info()
+        elif command == "c":
+            cmd = raw_input("Input command (uname -r) : ") or ("uname -r")
+            Log.info("Command : %s" % (cmd))
+            for i in slaves.keys():
+                slave = slaves[i]
+                result = slave.send_command_print(cmd)
         elif command == "g":
             input_node_hash = raw_input(
                 "Please input target node hash : ") or position
