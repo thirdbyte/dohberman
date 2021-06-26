@@ -104,29 +104,10 @@ class Slave():
         self.hostname, self.port = socket_fd.getpeername()
         self.node_hash = node_hash(self.hostname, self.port)
         self.interactive = False
-        self.api_info = self.location(self.hostname)
-        self.country = self.api_info['country']
-        self.isp = self.api_info['isp']
-        self.area = self.api_info['area']
-        self.region = self.api_info['region']
-        self.city = self.api_info['city']
-
-    def location(self, host):
-        '''
-        try:
-            response = requests.get("http://ip.taobao.com/service/getIpInfo.php?ip=%s" % (host), timeout=0.5)
-            content = response.content
-            return json.loads(content)["data"]
-        except Exception as e:
-            Log.error(str(e))
-        '''
-        return {"data":"error", 'country': 'Unknown_country','isp': 'Unknown_isp','area': 'Unknown_area','region': 'Unknown_region','city': 'Unknown_city',}
 
     def show_info(self):
         Log.info("Hash : %s" % (self.node_hash))
         Log.info("From : %s:%d" % (self.hostname, self.port))
-        Log.info("ISP : %s-%s" % (self.country, self.isp))
-        Log.info("Location : %s-%s-%s" % (self.area, self.region, self.city))
 
     def send_command(self, command):
         try:
@@ -148,23 +129,6 @@ class Slave():
             return result.split(token)[1]
         else:
             return "Somthing wrong"
-
-
-    def send_command_log(self, command):
-        log_file = "./log/%s.log" % (time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime()))
-        Log.info("Log file : %s" % (log_file))
-        self.send_command(command)
-        time.sleep(0.5)
-        Log.info("Receving data from socket...")
-        result = recvall(self.socket_fd)
-        Log.success(result)
-        with open(log_file, "a+") as f:
-            f.write("[%s]\n" % ("-" * 0x20))
-            f.write("From : %s:%d\n" % (self.hostname, self.port))
-            f.write(u"ISP : %s-%s\n" % (self.country, self.isp))
-            f.write(u"Location : %s-%s-%s\n" % (self.area, self.region, self.city))
-            f.write("Command : %s\n" % (command))
-            f.write("%s\n" % (result))
 
     def send_command_print(self, command):
         print ">>>>>> %s" % command
