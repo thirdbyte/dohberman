@@ -72,6 +72,29 @@ def slaver(host, port, fake):
     slaver_fd.shutdown(socket.SHUT_RDWR)
     slaver_fd.close()
 
+def transfer(h):
+    slave = slaves[h]
+    socket_fd = slave.socket_fd
+    buffer_size = 0x400
+    interactive_stat = True
+    while True:
+        if EXIT_FLAG:
+            Log.warning("Transfer function exiting...")
+            break
+        interactive_stat = slave.interactive
+        buffer = socket_fd.recv(buffer_size)
+        if not buffer:
+            Log.error("No data, breaking...")
+            break
+        sys.stdout.write(buffer)
+        if not interactive_stat:
+            break
+    if interactive_stat:
+        Log.error("Unexpected EOF!")
+        socket_fd.shutdown(socket.SHUT_RDWR)
+        socket_fd.close()
+        slave.remove_node()
+
 def random_string(length, chars):
     return "".join([random.choice(chars) for i in range(length)])
 
