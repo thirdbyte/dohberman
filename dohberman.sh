@@ -1,6 +1,6 @@
 #!/bin/bash
 cat banner.txt
-echo "[i] Generate cmd/unix/reverse_python payloads with DNS over HTTPS resolution : "
+echo "[i] Generate cmd/unix/reverse_python like payloads with DNS over HTTPS resolution : "
 echo ""
 read -p "[*] LHOST              >>> " host
 read -p "[*] LPORT              >>> " port
